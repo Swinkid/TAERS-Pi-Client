@@ -42,6 +42,8 @@ public class DeviceManager {
 
             lcd.clear();
 
+            lcd.writeln(0, "Starting GPS");
+
             gps.run();
 
 

@@ -31,10 +31,12 @@ public class GPS implements Runnable {
                     if(sentence.contains("$GPGGA")){
                         sentence = sentence.split("\r\n")[0];
 
-                        NMEASentence parsedSentence = new NMEASentence(sentence);
+                        System.out.println(sentence);
 
-                        DeviceManager.setDisplayText("Lat: " + NMEASentence.getDecimalDegrees(parsedSentence.getLatitudeString(), false),  0);
-                        DeviceManager.setDisplayText("Lng: " + NMEASentence.getDecimalDegrees(parsedSentence.getLongitudeString(), true), 1);
+                        GPGGA parsedSentence = new GPGGA(sentence);
+
+                        DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(parsedSentence.getLatitudeString(), parsedSentence.getLatitudeDirection()),  0);
+                        DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(parsedSentence.getLongitudeString(), parsedSentence.getLongitudeDirection()), 1);
 
 
                     }
@@ -68,5 +70,39 @@ public class GPS implements Runnable {
         catch(IOException ex) {
             return;
         }
+    }
+
+    /**
+     * Calculates the Decimal Degrees from NMEA Format.
+     *
+     * @param coordinate NMEA Coordinates (DMS)
+     * @param direction Direction of co ordinate (N / S, E / W)
+     * @return float Decimal Degrees
+     */
+    public static float getDecimalDegrees(String coordinate, String direction){
+        int decimal = coordinate.indexOf(".");
+        float decimalResult = 0.0f;
+
+        if(decimal > 0) {
+            float degrees = Float.parseFloat(coordinate.substring(0, decimal - 2));
+            float minutes = Float.parseFloat(coordinate.substring(decimal - 2, coordinate.length()));
+
+            switch (direction){
+                case "N":
+                    decimalResult = degrees + (minutes / 60);
+                    break;
+                case "E":
+                    decimalResult = degrees + (minutes / 60);
+                    break;
+                case "S":
+                    decimalResult = (degrees + (minutes / 60)) * -1;
+                    break;
+                case "W":
+                    decimalResult = (degrees + (minutes / 60)) * -1;
+                    break;
+            }
+        }
+
+        return decimalResult;
     }
 }
