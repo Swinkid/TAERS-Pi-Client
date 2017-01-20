@@ -8,8 +8,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        //DeviceManager.clearDisplay();
-        //DeviceManager.setDisplayText("Started.", 0);
 
     }
 }

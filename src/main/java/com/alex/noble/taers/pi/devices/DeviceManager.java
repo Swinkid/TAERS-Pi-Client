@@ -36,7 +36,9 @@ public class DeviceManager {
             lcd.writeln(1, "Manager....");*/
 
             gps = new GPS();
+
             gps.run();
+
 
         }
 
@@ -49,6 +51,10 @@ public class DeviceManager {
 
     public static void clearDisplay(){
         lcd.clear();
+    }
+
+    public static void startGPS(){
+        gps.run();
     }
 
 }

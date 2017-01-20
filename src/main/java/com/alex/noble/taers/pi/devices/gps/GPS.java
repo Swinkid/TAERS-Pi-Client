@@ -26,7 +26,12 @@ public class GPS implements Runnable {
 
                     if(sentence.contains("$GPGGA")){
                         sentence = sentence.split("\r\n")[0];
-                        System.out.println(sentence);
+
+                        NMEASentence parsedSentence = new NMEASentence(sentence);
+
+                        System.out.println(parsedSentence.getTimestamp());
+
+
                     }
 
                 } else {
