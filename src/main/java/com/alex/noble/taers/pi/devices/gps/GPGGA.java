@@ -1,7 +1,11 @@
 package com.alex.noble.taers.pi.devices.gps;
 
 /**
- * Created by Alex on 20/01/2017.
+ * GPGGA
+ *
+ * Class representation of the GPGGA NMEA Sentence.
+ *
+ * @author Alex Noble
  */
 public class GPGGA extends NMEASentence {
     public GPGGA(String sentence) {
@@ -17,10 +21,20 @@ public class GPGGA extends NMEASentence {
         return this.getSentence()[1];
     }
 
+    /**
+     * Gets direction of Latitude Co-ordinates
+     *
+     * @return String N / S Latitude Direction
+     */
     public String getLatitudeDirection(){
         return this.getSentence()[3];
     }
 
+    /**
+     * Gets direction of Longitude Direction
+     *
+     * @return String E / W Longitude Direction
+     */
     public String getLongitudeDirection(){
         return this.getSentence()[5];
     }

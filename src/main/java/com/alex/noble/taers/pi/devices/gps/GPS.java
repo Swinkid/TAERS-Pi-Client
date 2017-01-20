@@ -4,6 +4,7 @@ import com.alex.noble.taers.pi.devices.DeviceManager;
 import com.pi4j.io.serial.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,23 +26,32 @@ public class GPS implements Runnable {
                 if(event.getAsciiString().startsWith("$")){
                     sentence = "";
                     sentence += event.getAsciiString();
-                } else if (event.getAsciiString().endsWith("\n")){
+                } else if (event.getAsciiString().endsWith("\r\n") || event.getAsciiString().endsWith("\n") || event.getAsciiString().endsWith("\r")){
                     sentence += event.getAsciiString().replace("\r\n", " ").replace("\n", " ").replace("\n\n", " ").replace("\r", " ");
 
-                    sentence = sentence.split("\r\n")[0];
+                    String[] sentences;
 
-                    if(sentence.contains("$GPGGA")){
+                    sentences = sentence.split("\r\n");
 
+                    ArrayList parsedSentences = new ArrayList();
 
-                        System.out.println(sentence);
-
-                        GPGGA parsedSentence = new GPGGA(sentence);
-
-                        DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(parsedSentence.getLatitudeString(), parsedSentence.getLatitudeDirection()),  0);
-                        DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(parsedSentence.getLongitudeString(), parsedSentence.getLongitudeDirection()), 1);
+                    for(String s : sentences){
 
 
+                        if(s.contains("$GPGGA")){
+
+                            GPGGA parsedSentence = new GPGGA(sentence);
+
+                            parsedSentences.add(parsedSentence);
+
+                            DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(parsedSentence.getLatitudeString(), parsedSentence.getLatitudeDirection()),  0);
+                            DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(parsedSentence.getLongitudeString(), parsedSentence.getLongitudeDirection()), 1);
+
+
+                        }
                     }
+
+
 
                 } else {
                     sentence += event.getAsciiString();
