@@ -1,4 +1,4 @@
-package com.alex.noble.taers.pi.devices;
+package com.alex.noble.taers.pi.devices.lcd;
 
 
 import com.pi4j.component.lcd.impl.I2CLcdDisplay;
