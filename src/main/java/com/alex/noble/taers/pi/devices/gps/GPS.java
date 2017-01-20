@@ -1,10 +1,14 @@
 package com.alex.noble.taers.pi.devices.gps;
 
+import com.alex.noble.taers.pi.devices.DeviceManager;
 import com.pi4j.io.serial.*;
 
 import java.io.IOException;
 
 /**
+ *
+ * TODO: Generalize listener method to accept more than GPGGA NMEA Sentence
+ *
  * Created by Alex on 20/01/2017.
  */
 public class GPS implements Runnable {
@@ -29,7 +33,8 @@ public class GPS implements Runnable {
 
                         NMEASentence parsedSentence = new NMEASentence(sentence);
 
-                        System.out.println(parsedSentence.getTimestamp());
+                        DeviceManager.setDisplayText("Lat: " + NMEASentence.getDecimalDegrees(parsedSentence.getLatitudeString(), false),  0);
+                        DeviceManager.setDisplayText("Lng: " + NMEASentence.getDecimalDegrees(parsedSentence.getLongitudeString(), true), 1);
 
 
                     }

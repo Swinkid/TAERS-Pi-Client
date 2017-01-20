@@ -4,9 +4,11 @@ import com.alex.noble.taers.pi.devices.DeviceManager;
 
 public class Main {
 
-    public static final DeviceManager deviceManager = DeviceManager.getInstance();
+    public static DeviceManager deviceManager;
 
     public static void main(String[] args) throws Exception {
+
+        deviceManager = DeviceManager.getInstance();
 
 
     }
