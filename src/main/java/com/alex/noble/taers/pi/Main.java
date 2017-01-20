@@ -31,8 +31,13 @@ public class Main {
                     sentence = "";
                     sentence += event.getAsciiString();
                 } else if (event.getAsciiString().endsWith("\n")){
-                    sentence += event.getAsciiString().replace("\r\n", " ").replace("\n", " ").replace("\n\n", " ");
-                    System.out.println(sentence);
+                    sentence += event.getAsciiString().replace("\r\n", " ").replace("\n", " ").replace("\n\n", " ").replace("\r", " ");
+
+                     if(sentence.contains("$GPGGA")){
+                         sentence = sentence.split("\r\n")[0];
+                         System.out.println(sentence);
+                     }
+
                 } else {
                     sentence += event.getAsciiString();
                 }
