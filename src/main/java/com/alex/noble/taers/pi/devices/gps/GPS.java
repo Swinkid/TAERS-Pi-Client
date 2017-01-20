@@ -28,8 +28,10 @@ public class GPS implements Runnable {
                 } else if (event.getAsciiString().endsWith("\n")){
                     sentence += event.getAsciiString().replace("\r\n", " ").replace("\n", " ").replace("\n\n", " ").replace("\r", " ");
 
+                    sentence = sentence.split("\r\n")[0];
+
                     if(sentence.contains("$GPGGA")){
-                        sentence = sentence.split("\r\n")[0];
+
 
                         System.out.println(sentence);
 

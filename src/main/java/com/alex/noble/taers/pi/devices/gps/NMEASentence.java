@@ -34,5 +34,9 @@ public class NMEASentence {
         return this.unparsedSentence;
     }
 
+    public String getSentenceType(){
+        return this.sentence[0];
+    }
+
 
 }
