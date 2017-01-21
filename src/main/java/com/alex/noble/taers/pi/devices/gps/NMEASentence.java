@@ -7,7 +7,7 @@ package com.alex.noble.taers.pi.devices.gps;
  *
  * @author Alex Noble
  */
-public class NMEASentence {
+public abstract class NMEASentence {
 
     private String[] sentence;
     private String unparsedSentence;
@@ -38,5 +38,42 @@ public class NMEASentence {
         return this.sentence[0];
     }
 
+
+
+    /**
+     * Returns Timestamp of Fix.
+     *
+     * @return String timestamp of fix.
+     */
+    public abstract String getTimestamp();
+
+    /**
+     * Gets direction of Latitude Co-ordinates
+     *
+     * @return String N / S Latitude Direction
+     */
+    public abstract String getLatitudeDirection();
+
+    /**
+     * Gets direction of Longitude Direction
+     *
+     * @return String E / W Longitude Direction
+     */
+    public abstract String getLongitudeDirection();
+
+
+    /**
+     * Returns Latitude String
+     *
+     * @return String latitude
+     */
+    public abstract String getLatitudeString();
+
+    /**
+     * Returns Longitude String
+     *
+     * @return String longitude
+     */
+    public abstract String getLongitudeString();
 
 }

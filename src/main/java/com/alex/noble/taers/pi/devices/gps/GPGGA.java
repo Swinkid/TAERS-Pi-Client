@@ -17,6 +17,7 @@ public class GPGGA extends NMEASentence {
      *
      * @return String timestamp of fix.
      */
+    @Override
     public String getTimestamp(){
         return this.getSentence()[1];
     }
@@ -26,6 +27,7 @@ public class GPGGA extends NMEASentence {
      *
      * @return String N / S Latitude Direction
      */
+    @Override
     public String getLatitudeDirection(){
         return this.getSentence()[3];
     }
@@ -35,6 +37,7 @@ public class GPGGA extends NMEASentence {
      *
      * @return String E / W Longitude Direction
      */
+    @Override
     public String getLongitudeDirection(){
         return this.getSentence()[5];
     }
@@ -44,6 +47,7 @@ public class GPGGA extends NMEASentence {
      *
      * @return String latitude
      */
+    @Override
     public String getLatitudeString(){
         return this.getSentence()[2];
     }
@@ -53,6 +57,7 @@ public class GPGGA extends NMEASentence {
      *
      * @return String longitude
      */
+    @Override
     public String getLongitudeString(){
         return this.getSentence()[4];
     }

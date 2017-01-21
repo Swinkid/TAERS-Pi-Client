@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 /**
  *
- * TODO: Generalize listener method to accept more than GPGGA NMEA Sentence
- *
  * Created by Alex on 20/01/2017.
  */
 public class GPS implements Runnable {
@@ -33,24 +31,23 @@ public class GPS implements Runnable {
 
                     sentences = sentence.split("\r\n");
 
-                    ArrayList parsedSentences = new ArrayList();
+                    ArrayList<NMEASentence> parsedSentences = new ArrayList<>();
 
                     for(String s : sentences){
 
-
-                        if(s.contains("$GPGGA")){
-
-                            GPGGA parsedSentence = new GPGGA(sentence);
-
-                            parsedSentences.add(parsedSentence);
-
-                            DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(parsedSentence.getLatitudeString(), parsedSentence.getLatitudeDirection()),  0);
-                            DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(parsedSentence.getLongitudeString(), parsedSentence.getLongitudeDirection()), 1);
-
-
+                        switch (s.split(",")[0]){
+                            case "$GPGGA":
+                                parsedSentences.add(new GPGGA(s));
+                                break;
                         }
+
                     }
 
+                    for(NMEASentence nmea : parsedSentences){
+                        DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()),  0);
+                        DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()), 1);
+
+                    }
 
 
                 } else {
