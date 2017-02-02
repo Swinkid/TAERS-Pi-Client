@@ -29,3 +29,4 @@ fabric.properties
 /.idea/
 /TAERS-Pi-Client.iml
 /target/
+/src/main/main.iml

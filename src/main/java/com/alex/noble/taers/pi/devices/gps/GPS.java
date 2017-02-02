@@ -44,9 +44,13 @@ public class GPS implements Runnable {
                     }
 
                     for(NMEASentence nmea : parsedSentences){
-                        DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()),  0);
-                        DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()), 1);
 
+                        switch(nmea.getSentenceType()){
+                            case "$GPGGA":
+                                DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()),  0);
+                                DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()), 1);
+                                break;
+                        }
                     }
 
 
