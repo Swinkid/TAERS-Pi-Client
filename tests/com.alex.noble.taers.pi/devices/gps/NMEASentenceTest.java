@@ -8,7 +8,7 @@ import static junit.framework.TestCase.assertEquals;
 /**
  * Junit Test Class to test NMEASentence.
  *
- * @Author Alex Noble
+ * @author Alex Noble
  */
 public class NMEASentenceTest {
 
