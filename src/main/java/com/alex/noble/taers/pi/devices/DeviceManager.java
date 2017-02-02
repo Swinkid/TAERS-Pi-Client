@@ -29,20 +29,28 @@ public class DeviceManager {
             try {
                 lcd = new I2CLcdDisplayEnhanced(LCD_ROW, LCD_COL,
                         I2CBus.BUS_1, I2C_ADDRESS, 3, 0, 1, 2, 7, 6, 5, 4);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            lcd.writeln(0, "Starting Device");
-            lcd.writeln(1, "Manager....");
+                lcd.writeln(0, "Starting Device");
+                lcd.writeln(1, "Manager....");
+            } catch (Exception e) {
+
+            }
 
             gps = new GPS();
 
             Thread.sleep(2000);
 
-            lcd.clear();
 
-            lcd.writeln(0, "Starting GPS");
+            try {
+                lcd.clear();
+
+                lcd.writeln(0, "Starting GPS");
+            } catch (Exception e){
+
+            }
+
+
+
 
             gps.run();
 

@@ -16,73 +16,74 @@ public class GPS implements Runnable {
 
     @Override
     public void run() {
-        final Serial serial = SerialFactory.createInstance();
+            final Serial serial = SerialFactory.createInstance();
 
-        serial.addListener((SerialDataEventListener) event -> {
+
+            serial.addListener((SerialDataEventListener) event -> {
+                try {
+
+                    if(event.getAsciiString().startsWith("$")){
+                        sentence = "";
+                        sentence += event.getAsciiString();
+                    } else if (event.getAsciiString().endsWith("\r\n") || event.getAsciiString().endsWith("\n") || event.getAsciiString().endsWith("\r")){
+                        sentence += event.getAsciiString().replace("\r\n", " ").replace("\n", " ").replace("\n\n", " ").replace("\r", " ");
+
+                        String[] sentences;
+
+                        sentences = sentence.split("\r\n");
+
+                        ArrayList<NMEASentence> parsedSentences = new ArrayList<>();
+
+                        for(String s : sentences){
+
+                            switch (s.split(",")[0]){
+                                case "$GPGGA":
+                                    parsedSentences.add(new GPGGA(s));
+                                    break;
+                            }
+
+                        }
+
+                        for(NMEASentence nmea : parsedSentences){
+
+                            switch(nmea.getSentenceType()){
+                                case "$GPGGA":
+                                    DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()),  0);
+                                    DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()), 1);
+                                    break;
+                            }
+                        }
+
+
+                    } else {
+                        sentence += event.getAsciiString();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
             try {
+                SerialConfig config = new SerialConfig();
 
-                if(event.getAsciiString().startsWith("$")){
-                    sentence = "";
-                    sentence += event.getAsciiString();
-                } else if (event.getAsciiString().endsWith("\r\n") || event.getAsciiString().endsWith("\n") || event.getAsciiString().endsWith("\r")){
-                    sentence += event.getAsciiString().replace("\r\n", " ").replace("\n", " ").replace("\n\n", " ").replace("\r", " ");
+                config.device(Serial.FIRST_USB_COM_PORT)
+                        .baud(Baud._4800)
+                        .dataBits(DataBits._8)
+                        .parity(Parity.NONE)
+                        .stopBits(StopBits._1)
+                        .flowControl(FlowControl.NONE);
 
-                    String[] sentences;
+                serial.open(config);
 
-                    sentences = sentence.split("\r\n");
+                while(true){
 
-                    ArrayList<NMEASentence> parsedSentences = new ArrayList<>();
-
-                    for(String s : sentences){
-
-                        switch (s.split(",")[0]){
-                            case "$GPGGA":
-                                parsedSentences.add(new GPGGA(s));
-                                break;
-                        }
-
-                    }
-
-                    for(NMEASentence nmea : parsedSentences){
-
-                        switch(nmea.getSentenceType()){
-                            case "$GPGGA":
-                                DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()),  0);
-                                DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()), 1);
-                                break;
-                        }
-                    }
-
-
-                } else {
-                    sentence += event.getAsciiString();
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        });
-
-        try {
-            SerialConfig config = new SerialConfig();
-
-            config.device(Serial.FIRST_USB_COM_PORT)
-                    .baud(Baud._4800)
-                    .dataBits(DataBits._8)
-                    .parity(Parity.NONE)
-                    .stopBits(StopBits._1)
-                    .flowControl(FlowControl.NONE);
-
-            serial.open(config);
-
-            while(true){
+            catch(Exception e) {
 
             }
-
-        }
-        catch(IOException ex) {
-            return;
-        }
     }
 
     /**
