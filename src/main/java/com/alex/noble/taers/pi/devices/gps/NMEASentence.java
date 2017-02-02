@@ -34,11 +34,15 @@ public abstract class NMEASentence {
         return this.unparsedSentence;
     }
 
+
+    /**
+     * Returns Sentence Type
+     *
+     * @return String Sentence type
+     */
     public String getSentenceType(){
         return this.sentence[0];
     }
-
-
 
     /**
      * Returns Timestamp of Fix.
