@@ -4,6 +4,8 @@ import com.alex.noble.taers.pi.devices.gps.GPS;
 import com.alex.noble.taers.pi.devices.lcd.I2CLcdDisplayEnhanced;
 import com.pi4j.io.i2c.I2CBus;
 
+import java.util.Timer;
+
 /**
  * @author Alex Noble
  */
@@ -18,9 +20,10 @@ public class DeviceManager {
     private static final int I2C_ADDRESS = 0x27;
     private static final int LCD_COL = 16, LCD_ROW = 2;
 
-    protected DeviceManager(){
+    private static float latestLat = 0.0f;
+    private static float latestLong = 0.0f;
 
-    }
+    private static boolean runUpdate = true;
 
     public static DeviceManager getInstance() throws InterruptedException {
         if(instance == null){
@@ -43,17 +46,15 @@ public class DeviceManager {
 
             try {
                 lcd.clear();
-
                 lcd.writeln(0, "Starting GPS");
             } catch (Exception e){
 
             }
 
-
-
-
             gps.run();
 
+            Timer timer = new Timer();
+            timer.schedule(new SendRequest(), 0, 10000);
 
         }
 
@@ -72,4 +73,19 @@ public class DeviceManager {
         gps.run();
     }
 
+    public static void setLatestLat(float lat){
+        latestLat = lat;
+    }
+
+    public static void setLatestLong(float lng){
+        latestLong = lng;
+    }
+
+    public static float getLatestLat() {
+        return latestLat;
+    }
+
+    public static float getLatestLong() {
+        return latestLong;
+    }
 }

@@ -14,6 +14,9 @@ public class GPS implements Runnable {
 
     public static String sentence = "";
 
+    private static float latestLong;
+    private static float latestLat;
+
     @Override
     public void run() {
             final Serial serial = SerialFactory.createInstance();
@@ -50,6 +53,9 @@ public class GPS implements Runnable {
                                 case "$GPGGA":
                                     DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()),  0);
                                     DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()), 1);
+
+                                    DeviceManager.setLatestLat(getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()));
+                                    DeviceManager.setLatestLong(getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()));
                                     break;
                             }
                         }
