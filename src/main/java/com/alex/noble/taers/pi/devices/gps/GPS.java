@@ -47,6 +47,8 @@ public class GPS implements Runnable {
 
                         }
 
+
+                        // Update LCD
                         for(NMEASentence nmea : parsedSentences){
 
                             switch(nmea.getSentenceType()){
@@ -125,4 +127,14 @@ public class GPS implements Runnable {
 
         return decimalResult;
     }
+
+    public static float getLatestLatitude(){
+        return 0.0f;
+    }
+
+    public static float getLatestLongitude(){
+        return 0.0f;
+    }
+
+
 }
