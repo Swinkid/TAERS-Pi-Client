@@ -12,10 +12,7 @@ import java.util.ArrayList;
  */
 public class GPS implements Runnable {
 
-    public static String sentence = "";
-
-    private static float latestLong;
-    private static float latestLat;
+    private static String sentence = "";
 
     @Override
     public void run() {

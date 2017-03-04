@@ -23,8 +23,6 @@ public class DeviceManager {
     private static float latestLat = 0.0f;
     private static float latestLong = 0.0f;
 
-    private static boolean runUpdate = true;
-
     public static DeviceManager getInstance() throws InterruptedException {
         if(instance == null){
             instance = new DeviceManager();
@@ -54,7 +52,7 @@ public class DeviceManager {
             gps.run();
 
             Timer timer = new Timer();
-            timer.schedule(new SendRequest(), 0, 10000);
+            timer.schedule(new RequestTimer(), 0, 10000);
 
         }
 
@@ -63,14 +61,6 @@ public class DeviceManager {
 
     public static void setDisplayText(String text, int displayLine){
         lcd.writeln(displayLine, text);
-    }
-
-    public static void clearDisplay(){
-        lcd.clear();
-    }
-
-    public static void startGPS(){
-        gps.run();
     }
 
     public static void setLatestLat(float lat){

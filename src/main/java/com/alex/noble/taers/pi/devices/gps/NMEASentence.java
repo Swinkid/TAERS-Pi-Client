@@ -12,7 +12,7 @@ public abstract class NMEASentence {
     private String[] sentence;
     private String unparsedSentence;
 
-    public NMEASentence(String sentence){
+    NMEASentence(String sentence){
         this.unparsedSentence = sentence;
         this.sentence = sentence.split(",");
     }
