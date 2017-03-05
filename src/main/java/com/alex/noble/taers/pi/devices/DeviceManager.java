@@ -49,11 +49,10 @@ public class DeviceManager {
 
             }
 
-            gps.run();
-
             Timer timer = new Timer();
-            timer.schedule(new RequestTimer(), 0, 10000);
+            timer.schedule(new RequestTimer(), 0, 2000);
 
+            gps.run();
         }
 
         return instance;
