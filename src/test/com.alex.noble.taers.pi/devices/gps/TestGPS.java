@@ -5,7 +5,7 @@ import org.junit.Test;
 /**
  * Created by Alex on 02/02/2017.
  */
-public class GPS {
+public class TestGPS {
     @Test
     public void testDecimalDegreesLatitudeCalculation() {
 
