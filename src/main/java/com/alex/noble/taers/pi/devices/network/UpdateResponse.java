@@ -9,6 +9,7 @@ package com.alex.noble.taers.pi.devices.network;
  */
 public class UpdateResponse {
 
+
     public int updateCount = 0;
     public String status = "NONE";
     public String message = "";
