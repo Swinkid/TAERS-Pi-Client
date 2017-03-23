@@ -1,35 +1,39 @@
 package com.alex.noble.taers.pi.devices;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 /**
  * Created by Alex on 02/02/2017.
  */
 public class TestDeviceManager {
 
-    private float TEST_LAT = 51.572f;
-    private float TEST_LNG = -1.7583534f;
-    private DeviceManager deviceManager;
+    private static final float NEW_LAT_LONG = 0.1f;
 
-    @Before
-    public void initialize() throws InterruptedException {
-        deviceManager = DeviceManager.getInstance();
+    @Test
+    public void testNullObject() {
+        DeviceManager deviceManager = new DeviceManager();
+        assertNotNull(deviceManager);
     }
 
     @Test
-    public void testGetSetLatitude(){
-        deviceManager.setLatestLat(TEST_LAT);
-        assertEquals(TEST_LAT, deviceManager.getLatestLat());
+    public void testGetSetLatestLat() {
+        DeviceManager deviceManager = new DeviceManager();
+
+        deviceManager.setLatestLat(NEW_LAT_LONG);
+
+        assertEquals(NEW_LAT_LONG, deviceManager.getLatestLat());
     }
 
     @Test
-    public void testGetSetLongitude(){
-        deviceManager.setLatestLong(TEST_LNG);
-        assertEquals(TEST_LAT, deviceManager.getLatestLong());
-    }
+    public void testSetLatestLong() {
+        DeviceManager deviceManager = new DeviceManager();
 
+        deviceManager.setLatestLong(NEW_LAT_LONG);
+
+        assertEquals(NEW_LAT_LONG, deviceManager.getLatestLong());
+    }
 
 }
