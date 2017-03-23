@@ -14,7 +14,14 @@ public class RequestTimer extends TimerTask {
         UpdateResponse updates = NetworkManager.getUpdates("+447456421341");
 
         if(updates.getStatus().equals("OK")){
-            System.out.println(updates.getMessage());
+            String messages = updates.getMessage();
+
+            String[] display = messages.split(",");
+
+            for(int i = 0; i < 2; i++){
+                DeviceManager.setDisplayText(display[i], i);
+            }
+
         }
     }
 }

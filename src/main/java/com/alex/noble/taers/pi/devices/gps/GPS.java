@@ -50,8 +50,6 @@ public class GPS implements Runnable {
 
                             switch(nmea.getSentenceType()){
                                 case "$GPGGA":
-                                    DeviceManager.setDisplayText("Lat: " + getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()),  0);
-                                    DeviceManager.setDisplayText("Lng: " + getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()), 1);
 
                                     DeviceManager.setLatestLat(getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()));
                                     DeviceManager.setLatestLong(getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()));

@@ -42,7 +42,7 @@ public class NetworkManager {
             output.flush();
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-
+                //TODO
             }
 
             connection.disconnect();
@@ -69,7 +69,7 @@ public class NetworkManager {
             os.flush();
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-
+                //TODO
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(

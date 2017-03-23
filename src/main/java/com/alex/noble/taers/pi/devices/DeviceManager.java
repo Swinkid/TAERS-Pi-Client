@@ -51,8 +51,9 @@ public class DeviceManager {
 
             Timer timer = new Timer();
             timer.schedule(new RequestTimer(), 0, 2000);
-
+            lcd.clear();
             gps.run();
+
         }
 
         return instance;
