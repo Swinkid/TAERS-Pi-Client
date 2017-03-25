@@ -14,23 +14,6 @@ public class I2CLcdDisplayEnhanced extends I2CLcdDisplay {
 
     private byte backlight;
 
-    /**
-     * Constructs ...
-     *
-     * @param rows
-     * @param columns
-     * @param i2cBus
-     * @param i2cAddress
-     * @param backlight
-     * @param rsBit
-     * @param rwBit
-     * @param eBit
-     * @param d7
-     * @param d6
-     * @param d5
-     * @param d4
-     * @throws Exception
-     */
     public I2CLcdDisplayEnhanced(int rows, int columns, int i2cBus, int i2cAddress, int backlight, int rsBit, int rwBit, int eBit, int d7, int d6, int d5, int d4) throws Exception {
         super(rows, columns, i2cBus, i2cAddress, backlight, rsBit, rwBit, eBit, d7, d6, d5, d4);
 
@@ -38,8 +21,11 @@ public class I2CLcdDisplayEnhanced extends I2CLcdDisplay {
     }
 
     /**
+     * cursor
      *
-     * @param state
+     * Turns cursor on/off.
+     *
+     * @param state on/off cursor.
      */
     public void cursor(boolean state) {
         try {
@@ -55,8 +41,11 @@ public class I2CLcdDisplayEnhanced extends I2CLcdDisplay {
     }
 
     /**
+     * cursorBLink
      *
-     * @param state
+     * Sets cursor to either blink on or off.
+     *
+     * @param state on/off blink
      */
     public void cursorBlink(boolean state) {
         try {

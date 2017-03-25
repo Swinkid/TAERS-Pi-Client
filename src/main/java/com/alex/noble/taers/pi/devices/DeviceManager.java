@@ -59,22 +59,56 @@ public class DeviceManager {
         return instance;
     }
 
+    /**
+     * Writes a message to LCD
+     *
+     * @param text text to display
+     * @param displayLine line to place text on LCD
+     */
     public static void setDisplayText(String text, int displayLine){
         lcd.writeln(displayLine, text);
     }
 
+    /**
+     * setLatestLat
+     *
+     * Set the latest latitude variable.
+     *
+     * @param lat latitude coordinate
+     */
     public static void setLatestLat(float lat){
         latestLat = lat;
     }
 
+    /**
+     * setLatestLong
+     *
+     * Set the latest longitude variable.
+     *
+     * @param lng longitude coordinate.
+     */
     public static void setLatestLong(float lng){
         latestLong = lng;
     }
 
+    /**
+     * getLatestLat
+     *
+     * Gets the latest latitude set.
+     *
+     * @return float latitude co ordinate
+     */
     public static float getLatestLat() {
         return latestLat;
     }
 
+    /**
+     * getLatestLong
+     *
+     * Gets the latest longitude set.
+     *
+     * @return float longitude co ordinate.
+     */
     public static float getLatestLong() {
         return latestLong;
     }

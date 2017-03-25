@@ -13,17 +13,28 @@ import java.net.URL;
  * Network Manager
  *
  * Manages REST (GET / POST) calls to the API server.
+ *
+ * @author Alex Noble
  */
 public class NetworkManager {
 
+    // Backend API URL
     private static final String API_URL = "http://frontend.alexnoble.co.uk:3001";
 
+    // API Paths
     private static final String UPDATE_LOCATION_PATH = "/api/location/update";
     private static final String GET_UPDATES_PATH = "/api/updates/get";
     private static final String UPDATE_STATUS_PATH = "/api/device/status/update";
 
-
-
+    /**
+     * updateLocation
+     *
+     * Takes lat/long co ordinates and fires a HTTP request to the backend API to update location.
+     *
+     * @param device device number
+     * @param lat latitude co ordinate
+     * @param lng longitude co ordinate
+     */
     public static void updateLocation(String device, float lat, float lng){
         try {
             URL updateLocationURL = new URL(API_URL + UPDATE_LOCATION_PATH);
@@ -42,7 +53,7 @@ public class NetworkManager {
             output.flush();
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-                //TODO
+                // Doesn't run HTTP request without it.
             }
 
             connection.disconnect();
@@ -51,6 +62,15 @@ public class NetworkManager {
         }
     }
 
+    /**
+     * getUpdates
+     *
+     * Fires a HTTP request to backend API to get updates. Backend will delete and read updates to stop
+     * duplication.
+     *
+     * @param device device number
+     * @return UpdateResponse pojo of the response.
+     */
     public static UpdateResponse getUpdates(String device){
         try {
             URL getUpdatesURL = new URL(API_URL + GET_UPDATES_PATH);
@@ -69,7 +89,7 @@ public class NetworkManager {
             os.flush();
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
-                //TODO
+                // Doesn't run HTTP request without it.
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -78,14 +98,15 @@ public class NetworkManager {
 
             String output = "";
             String line;
+
+            // Read response
             while ((line = br.readLine()) != null) {
                 output += line;
             }
 
+            // Create Pojo from JSON response
             Gson gson = new Gson();
-
             UpdateResponse update = gson.fromJson(output, UpdateResponse.class);
-
             connection.disconnect();
 
             return update;

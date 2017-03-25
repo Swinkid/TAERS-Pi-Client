@@ -7,8 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
+ * GPS
  *
- * Created by Alex on 20/01/2017.
+ * Pojo thread that handles listening to GPS serial messages and parsing.
+ *
+ * @author Alex Noble
  */
 public class GPS implements Runnable {
 
@@ -36,6 +39,7 @@ public class GPS implements Runnable {
 
                         for(String s : sentences){
 
+                            // Calculate message type
                             switch (s.split(",")[0]){
                                 case "$GPGGA":
                                     parsedSentences.add(new GPGGA(s));
@@ -44,13 +48,12 @@ public class GPS implements Runnable {
 
                         }
 
-
-                        // Update LCD
                         for(NMEASentence nmea : parsedSentences){
 
                             switch(nmea.getSentenceType()){
                                 case "$GPGGA":
 
+                                    // Update location
                                     DeviceManager.setLatestLat(getDecimalDegrees(nmea.getLatitudeString(), nmea.getLatitudeDirection()));
                                     DeviceManager.setLatestLong(getDecimalDegrees(nmea.getLongitudeString(), nmea.getLongitudeDirection()));
                                     break;
@@ -80,7 +83,7 @@ public class GPS implements Runnable {
                 serial.open(config);
 
                 while(true){
-
+                    // Keep serial listen open
                 }
 
             }
@@ -104,6 +107,7 @@ public class GPS implements Runnable {
             float degrees = Float.parseFloat(coordinate.substring(0, decimal - 2));
             float minutes = Float.parseFloat(coordinate.substring(decimal - 2, coordinate.length()));
 
+            // Different calculation depending on GPS direction
             switch (direction){
                 case "N":
                     decimalResult = degrees + (minutes / 60);
@@ -122,14 +126,5 @@ public class GPS implements Runnable {
 
         return decimalResult;
     }
-
-    public static float getLatestLatitude(){
-        return 0.0f;
-    }
-
-    public static float getLatestLongitude(){
-        return 0.0f;
-    }
-
 
 }

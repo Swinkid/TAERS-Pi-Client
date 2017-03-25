@@ -6,7 +6,11 @@ import com.alex.noble.taers.pi.devices.network.UpdateResponse;
 import java.util.TimerTask;
 
 /**
- * Created by Alex on 14/02/2017.
+ * RequestTimer
+ *
+ * Timer task to send updates and recieve updates.
+ *
+ * @author Alex Noble
  */
 public class RequestTimer extends TimerTask {
     public void run(){
